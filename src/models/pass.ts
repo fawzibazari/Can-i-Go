@@ -1,0 +1,10 @@
+import mongoose from "mongoose";
+
+const PassSchema = new mongoose.Schema({
+  passLevel: { type: Number, required: true, unique: false },
+  levelDetails: { type: String, required: true, unique: false },
+  created_at: { type: Date },
+  updated_at: { type: Date },
+});
+
+export default mongoose.model("Pass", PassSchema);
