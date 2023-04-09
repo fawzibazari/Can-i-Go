@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-// import menuRoutes from "./routes";
+import userRoutes from "./routes/user";
 
 const app = express();
 
@@ -9,7 +9,7 @@ const PORT: string | number = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(express.json());
-// app.use(menuRoutes);
+app.use(userRoutes);
 
 // Connect to MongoDB
 mongoose
