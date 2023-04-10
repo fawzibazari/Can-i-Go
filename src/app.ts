@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import userRoutes from "./routes/user";
 import passRoutes from "./routes/pass";
+import placeRoutes from "./routes/place";
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use(userRoutes);
 app.use(passRoutes);
+app.use(placeRoutes);
 
 // Connect to MongoDB
 mongoose

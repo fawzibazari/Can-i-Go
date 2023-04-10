@@ -65,7 +65,6 @@ const updatePass = async (req: Request, res: Response): Promise<void> => {
       pass: updatePass,
     });
   } catch (error) {
-    throw error;
   }
 };
 
@@ -75,7 +74,7 @@ const deletePass = async (req: Request, res: Response): Promise<void> => {
       req.params.id
     );
     res.status(204).json({
-      user: deletedPass,
+      pass: deletedPass,
     });
   } catch (error) {
     throw error;
