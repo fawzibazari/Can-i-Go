@@ -1,6 +1,8 @@
 import { Response, Request } from "express";
 import UserModel from "../models/user";
+import PlaceModel from "../models/place";
 import { IUser } from "../types/user";
+import { IPlace } from "../types/place";
 
 const getUsers = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -79,4 +81,40 @@ const deleteUser = async (req: Request, res: Response): Promise<void> => {
     throw error;
   }
 };
-export { getUsers, addUser, updateUser, deleteUser, retrieveUser };
+
+const userByOneSpace = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const user_id = req.body.user_id;
+    const place_id = req.body.place_id;
+    const user_by_id: IUser | null = await UserModel.findById({ _id: user_id });
+    const place_by_id: IPlace | null = await PlaceModel.findById({
+      _id: place_id,
+    })
+      .where("minimumAge")
+      .lte(user_by_id?.age as number)
+      .exec();
+    place_by_id
+      ? res.status(200).json({
+          place_by_id,
+          success: true,
+          message: "yess he can access this space",
+        })
+      : res.status(404).json({
+          place_by_id,
+          success: false,
+          message: "this place is not accessible for this user",
+        });
+  } catch (error) {
+    res.status(400).json("missing fields");
+
+    console.log(error);
+  }
+};
+export {
+  getUsers,
+  addUser,
+  updateUser,
+  deleteUser,
+  retrieveUser,
+  userByOneSpace,
+};

@@ -2,7 +2,7 @@ import { Response, Request } from "express";
 import PassModel from "../models/pass";
 import { IPass } from "../types/pass";
 
-const getPasses = async (req: Request, res: Response): Promise<void> => {
+const getPasses = async (req: Request, res: Response): Promise<void> => {  
   try {
     const passes: IPass[] = await PassModel.find();
     res.status(200).json({ passes });

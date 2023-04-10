@@ -44,7 +44,7 @@ export function authorizedToken(
     if (err) {
       return res.sendStatus(401);
     }
-    req.body.user = user;
+    req.body.user = user;    
     next();
   });
 }
