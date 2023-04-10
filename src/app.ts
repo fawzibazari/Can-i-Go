@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import userRoutes from "./routes/user";
+import passRoutes from "./routes/pass";
 
 const app = express();
 
@@ -10,6 +11,7 @@ const PORT: string | number = process.env.PORT || 4000;
 app.use(cors());
 app.use(express.json());
 app.use(userRoutes);
+app.use(passRoutes);
 
 // Connect to MongoDB
 mongoose

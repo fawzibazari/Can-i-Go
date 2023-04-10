@@ -60,7 +60,7 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
     );
 
     res.status(updateUser ? 200 : 404).json({
-      menu: updateUser,
+      user: updateUser,
     });
   } catch (error) {
     throw error;
