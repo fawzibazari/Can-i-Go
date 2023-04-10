@@ -1,8 +1,10 @@
 import { Response, Request } from "express";
 import UserModel from "../models/user";
+import PassModel from "../models/pass";
 import PlaceModel from "../models/place";
 import { IUser } from "../types/user";
 import { IPlace } from "../types/place";
+import { IPass } from "../types/pass";
 
 const getUsers = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -87,11 +89,16 @@ const userByOneSpace = async (req: Request, res: Response): Promise<void> => {
     const user_id = req.body.user_id;
     const place_id = req.body.place_id;
     const user_by_id: IUser | null = await UserModel.findById({ _id: user_id });
+    const pass_by_id: IPass | null = await PassModel.findById({
+      _id: user_by_id?.passId,
+    });
     const place_by_id: IPlace | null = await PlaceModel.findById({
       _id: place_id,
     })
       .where("minimumAge")
       .lte(user_by_id?.age as number)
+      .where("minimumPassLevel")
+      .gte(pass_by_id?.passLevel as number)
       .exec();
     place_by_id
       ? res.status(200).json({
@@ -110,6 +117,37 @@ const userByOneSpace = async (req: Request, res: Response): Promise<void> => {
     console.log(error);
   }
 };
+
+const spacesByUser = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const user_id = req.body.user_id;
+    const user_by_id: IUser | null = await UserModel.findById({ _id: user_id });
+    const pass_by_id: IPass | null = await PassModel.findById({
+      _id: user_by_id?.passId,
+    });
+    const place_by_id: IPlace[] = await PlaceModel.find()
+      .where("minimumAge")
+      .lte(user_by_id?.age as number)
+      .where("minimumPassLevel")
+      .gte(pass_by_id?.passLevel as number)
+      .exec();
+    place_by_id
+      ? res.status(200).json({
+          place_by_id,
+          success: true,
+          message: "all spaces that the user can access",
+        })
+      : res.status(404).json({
+          place_by_id,
+          success: false,
+          message: "no spaces available for this user",
+        });
+  } catch (error) {
+    res.status(400).json("missing fields");
+
+    console.log(error);
+  }
+};
 export {
   getUsers,
   addUser,
@@ -117,4 +155,5 @@ export {
   deleteUser,
   retrieveUser,
   userByOneSpace,
+  spacesByUser
 };
