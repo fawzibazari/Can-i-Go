@@ -4,6 +4,7 @@ import cors from "cors";
 import userRoutes from "./routes/user";
 import passRoutes from "./routes/pass";
 import placeRoutes from "./routes/place";
+import authRoutes from "./routes/auth";
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(userRoutes);
 app.use(passRoutes);
 app.use(placeRoutes);
+app.use(authRoutes);
 
 // Connect to MongoDB
 mongoose

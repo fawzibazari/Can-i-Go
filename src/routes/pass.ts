@@ -1,13 +1,19 @@
 import { Router } from "express";
-import { addPass, deletePass, getPasses, retrievePass, updatePass } from "../controllers/pass";
-
+import {
+  addPass,
+  deletePass,
+  getPasses,
+  retrievePass,
+  updatePass,
+} from "../controllers/pass";
+import { authenticateToken } from "../utils/jwt";
 
 const passRoutes: Router = Router();
 
-passRoutes.get("/pass", getPasses);
-passRoutes.post("/pass", addPass);
-passRoutes.put("/pass/:id", updatePass);
-passRoutes.delete("/pass/:id", deletePass);
-passRoutes.get("/pass/:id", retrievePass);
+passRoutes.get("/pass", authenticateToken, getPasses);
+passRoutes.post("/pass", authenticateToken, addPass);
+passRoutes.put("/pass/:id", authenticateToken, updatePass);
+passRoutes.delete("/pass/:id", authenticateToken, deletePass);
+passRoutes.get("/pass/:id", authenticateToken, retrievePass);
 
 export default passRoutes;

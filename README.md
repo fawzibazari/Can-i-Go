@@ -1,5 +1,5 @@
 # CAN I GO? 🤔
-
+docker-compose up -d --build 
 ## Context :
 
 Your team is mandated by the governement to create a new app used as a COVID context utility called "Can I go?".
