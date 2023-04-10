@@ -5,6 +5,10 @@ const PlaceSchema = new mongoose.Schema({
   phoneNumber: { type: String, required: true, unique: false },
   minimumPassLevel: { type: Number, required: true, unique: false },
   minimumAge: { type: Number, required: true, unique: false },
+  ownerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 export default mongoose.model("Place", PlaceSchema);

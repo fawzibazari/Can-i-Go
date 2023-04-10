@@ -1,7 +1,6 @@
 import { Response, Request } from "express";
 import UserModel from "../models/user";
-import { IUser } from '../types/user';
-
+import { IUser } from "../types/user";
 
 const getUsers = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -56,7 +55,8 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
 
     const updateUser: IUser | null = await UserModel.findByIdAndUpdate(
       { _id: id },
-      body
+      body,
+      { new: true }
     );
 
     res.status(updateUser ? 200 : 404).json({

@@ -52,7 +52,13 @@ const updatePass = async (req: Request, res: Response): Promise<void> => {
 
     const updatePass: IPass | null = await PassModel.findByIdAndUpdate(
       { _id: id },
-      body
+      {
+        passLevel: body.passLevel,
+        levelDetails: body.levelDetails,
+        updated_at: Date.now(),
+      },
+      //for getting the new updated object
+      { new: true }
     );
 
     res.status(updatePass ? 200 : 404).json({
