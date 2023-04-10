@@ -5,6 +5,7 @@ import userRoutes from "./routes/user";
 import passRoutes from "./routes/pass";
 import placeRoutes from "./routes/place";
 import authRoutes from "./routes/auth";
+import { seedData } from "./utils/seed";
 
 const app = express();
 
@@ -31,3 +32,5 @@ app.get("/", async function name(req: Request, res: Response) {
 app.listen(PORT, () =>
   console.log(`Server running on http://localhost:${PORT}`)
 );
+
+seedData()

@@ -61,33 +61,46 @@ const updatePlace = async (req: Request, res: Response): Promise<void> => {
       body,
     } = req;
 
-    const updatePlace: IPlace | null = await PlaceModel.findByIdAndUpdate(
-      { _id: id },
-      {
-        address: body.address,
-        phoneNumber: body.phoneNumber,
-        minimumPassLevel: body.minimumPassLevel,
-        minimumAge: body.minimumAge,
-        ownerId: body.ownerId,
-      },
-      //for getting the new updated object
-      { new: true }
-    );
+    const place_by_id: IPlace | null = await PlaceModel.findById({ _id: id });
+    if (place_by_id?.ownerId == req.body.user._id) {
+      const updatePlace: IPlace | null = await PlaceModel.findByIdAndUpdate(
+        { _id: id },
+        {
+          address: body.address,
+          phoneNumber: body.phoneNumber,
+          minimumPassLevel: body.minimumPassLevel,
+          minimumAge: body.minimumAge,
+          ownerId: body.ownerId,
+        },
+        //for getting the new updated object
+        { new: true }
+      );
 
-    res.status(updatePlace ? 200 : 404).json({
-      place: updatePlace,
-    });
+      res.status(updatePlace ? 200 : 404).json({
+        place: updatePlace,
+      });
+    } else {
+      res.send(403);
+    }
   } catch (error) {}
 };
 
 const deletePlace = async (req: Request, res: Response): Promise<void> => {
   try {
-    const deletedPlace: IPlace | null = await PlaceModel.findByIdAndRemove(
-      req.params.id
-    );
-    res.status(204).json({
-      place: deletedPlace,
+    const place_by_id: IPlace | null = await PlaceModel.findById({
+      _id: req.params.id,
     });
+
+    if (place_by_id?.ownerId == req.body.user._id) {
+      const deletedPlace: IPlace | null = await PlaceModel.findByIdAndRemove(
+        req.params.id
+      );
+      res.status(204).json({
+        place: deletedPlace,
+      });
+    } else {
+      res.send(403);
+    }
   } catch (error) {
     throw error;
   }

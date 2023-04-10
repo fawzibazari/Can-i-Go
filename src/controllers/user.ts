@@ -56,16 +56,19 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
       params: { id },
       body,
     } = req;
+    if (id == req.body.user._id) {
+      const updateUser: IUser | null = await UserModel.findByIdAndUpdate(
+        { _id: id },
+        body,
+        { new: true }
+      );
 
-    const updateUser: IUser | null = await UserModel.findByIdAndUpdate(
-      { _id: id },
-      body,
-      { new: true }
-    );
-
-    res.status(updateUser ? 200 : 404).json({
-      user: updateUser,
-    });
+      res.status(updateUser ? 200 : 404).json({
+        user: updateUser,
+      });
+    } else {
+      res.send(403);
+    }
   } catch (error) {
     throw error;
   }
@@ -73,12 +76,16 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
 
 const deleteUser = async (req: Request, res: Response): Promise<void> => {
   try {
-    const deletedUser: IUser | null = await UserModel.findByIdAndRemove(
-      req.params.id
-    );
-    res.status(204).json({
-      user: deletedUser,
-    });
+    if (req.params.id == req.body.user._id) {
+      const deletedUser: IUser | null = await UserModel.findByIdAndRemove(
+        req.params.id
+      );
+      res.status(204).json({
+        user: deletedUser,
+      });
+    } else {
+      res.send(403);
+    }
   } catch (error) {
     throw error;
   }
@@ -155,5 +162,5 @@ export {
   deleteUser,
   retrieveUser,
   userByOneSpace,
-  spacesByUser
+  spacesByUser,
 };
