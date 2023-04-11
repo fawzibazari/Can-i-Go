@@ -18,6 +18,7 @@ app.use(passRoutes);
 app.use(placeRoutes);
 app.use(authRoutes);
 
+// docker run -e CI=true can_i_go_confirmed-api yarn test
 // Connect to MongoDB
 mongoose
   .connect("mongodb://mongo:27017/docker-node-mongo")
@@ -33,4 +34,5 @@ app.listen(PORT, () =>
   console.log(`Server running on http://localhost:${PORT}`)
 );
 
-seedData()
+seedData();
+export default app

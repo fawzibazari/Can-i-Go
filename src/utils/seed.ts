@@ -23,7 +23,20 @@ const users = [
     phoneNumber: "0610565096",
     address: "8 rue de la paix",
     createdAt: "2023-04-09T15:51:59.094Z",
-    updatedAt: "2023-04-09T15:51:59.094Z",
+    updatedAt: "2023-04-10T16:56:34.029Z",
+    __v: 0,
+    passId: "6433e00801bc19752389cf65",
+  },
+  {
+    _id: "6435e16d5c5711030cb9d4f7",
+    firstname: "test",
+    lastname: "test2",
+    age: 18,
+    phoneNumber: "0610565096",
+    address: "8 rue de la paix",
+    passId: "64343730f94829d1def60c4c",
+    createdAt: "2023-04-11T22:38:37.127Z",
+    updatedAt: "2023-04-11T22:38:37.127Z",
     __v: 0,
   },
 ];
@@ -85,9 +98,9 @@ const places = [
 
 export async function seedData() {
   await UserModel.deleteMany({});
-  await UserModel.insertMany(users);
-  await PassModel.deleteMany({});
-  await PassModel.insertMany(passes);
   await PlaceModel.deleteMany({});
+  await PassModel.deleteMany({});
+  await UserModel.insertMany(users);
+  await PassModel.insertMany(passes);
   await PlaceModel.insertMany(places);
 }
