@@ -46,7 +46,7 @@ const addUser = async (req: Request, res: Response): Promise<void> => {
     const newUser: IUser = await user.save();
     res.status(201).json(newUser);
   } catch (error) {
-    res.status(400).json("missing fields");
+    res.status(400).json("missing fields or pass ID does not exists");
   }
 };
 

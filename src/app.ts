@@ -6,6 +6,8 @@ import passRoutes from "./routes/pass";
 import placeRoutes from "./routes/place";
 import authRoutes from "./routes/auth";
 import { seedData } from "./utils/seed";
+import swaggerUi from 'swagger-ui-express'
+import {swagger} from './swagger'
 
 const app = express();
 
@@ -17,6 +19,7 @@ app.use(userRoutes);
 app.use(passRoutes);
 app.use(placeRoutes);
 app.use(authRoutes);
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swagger));
 
 // docker run -e CI=true can_i_go_confirmed-api yarn test
 // Connect to MongoDB
