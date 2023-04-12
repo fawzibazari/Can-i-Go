@@ -16,8 +16,7 @@ services:
     build: .
     volumes:
       - ./src:/app/src
-    command: >
-      sh -c "yarn test"
+    entrypoint: sh -c "yarn test"      
   mongo:
     image: mongo
     ports:
