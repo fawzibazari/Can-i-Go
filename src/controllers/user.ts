@@ -11,7 +11,7 @@ const getUsers = async (req: Request, res: Response): Promise<void> => {
     const users: IUser[] = await UserModel.find();
     res.status(200).json({ users });
   } catch (error) {
-    throw error;
+    console.log(error);
   }
 };
 
@@ -24,7 +24,7 @@ const retrieveUser = async (req: Request, res: Response): Promise<void> => {
 
     res.status(user_by_id ? 200 : 404).json({ user_by_id });
   } catch (error) {
-    throw error;
+    console.log(error);
   }
 };
 
@@ -70,7 +70,7 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
       res.send(403);
     }
   } catch (error) {
-    throw error;
+console.log(error);
   }
 };
 
@@ -87,7 +87,7 @@ const deleteUser = async (req: Request, res: Response): Promise<void> => {
       res.send(403);
     }
   } catch (error) {
-    throw error;
+    console.log(error);
   }
 };
 
@@ -111,7 +111,7 @@ const userByOneSpace = async (req: Request, res: Response): Promise<void> => {
       ? res.status(200).json({
           place_by_id,
           success: true,
-          message: "yess he can access this space",
+          message: "yess you can access this space",
         })
       : res.status(404).json({
           place_by_id,
@@ -138,7 +138,7 @@ const spacesByUser = async (req: Request, res: Response): Promise<void> => {
       .where("minimumPassLevel")
       .gte(pass_by_id?.passLevel as number)
       .exec();
-    place_by_id
+    place_by_id.length > 0
       ? res.status(200).json({
           place_by_id,
           success: true,

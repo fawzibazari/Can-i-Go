@@ -2,12 +2,12 @@ import { Response, Request } from "express";
 import PassModel from "../models/pass";
 import { IPass } from "../types/pass";
 
-const getPasses = async (req: Request, res: Response): Promise<void> => {  
+const getPasses = async (req: Request, res: Response): Promise<void> => {
   try {
     const passes: IPass[] = await PassModel.find();
     res.status(200).json({ passes });
   } catch (error) {
-    throw error;
+    console.log(error);
   }
 };
 
@@ -20,7 +20,7 @@ const retrievePass = async (req: Request, res: Response): Promise<void> => {
 
     res.status(pass_by_id ? 200 : 404).json({ pass_by_id });
   } catch (error) {
-    throw error;
+    console.log(error);
   }
 };
 
@@ -65,6 +65,7 @@ const updatePass = async (req: Request, res: Response): Promise<void> => {
       pass: updatePass,
     });
   } catch (error) {
+    console.log(error);
   }
 };
 
@@ -77,7 +78,7 @@ const deletePass = async (req: Request, res: Response): Promise<void> => {
       pass: deletedPass,
     });
   } catch (error) {
-    throw error;
+    console.log(error);
   }
 };
 export { getPasses, addPass, updatePass, deletePass, retrievePass };

@@ -7,7 +7,7 @@ const getPlaces = async (req: Request, res: Response): Promise<void> => {
     const places: IPlace[] = await PlaceModel.find();
     res.status(200).json({ places });
   } catch (error) {
-    throw error;
+    console.log(error);
   }
 };
 
@@ -20,7 +20,7 @@ const retrievePlace = async (req: Request, res: Response): Promise<void> => {
 
     res.status(place_by_id ? 200 : 404).json({ place_by_id });
   } catch (error) {
-    throw error;
+    console.log(error);
   }
 };
 
@@ -82,7 +82,10 @@ const updatePlace = async (req: Request, res: Response): Promise<void> => {
     } else {
       res.send(403);
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+
+  }
 };
 
 const deletePlace = async (req: Request, res: Response): Promise<void> => {
@@ -102,7 +105,7 @@ const deletePlace = async (req: Request, res: Response): Promise<void> => {
       res.send(403);
     }
   } catch (error) {
-    throw error;
+    console.log(error);
   }
 };
 export { getPlaces, addPlace, updatePlace, deletePlace, retrievePlace };
