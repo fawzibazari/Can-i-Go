@@ -10,13 +10,13 @@ services:
       - "4000:4000"
     command: >
       sh -c "yarn start"
-  test:
-    container_name: node_api_test
-    restart: on-failure
-    build: .
-    volumes:
-      - ./src:/app/src
-    entrypoint: sh -c "yarn test"      
+  # test:
+  #   container_name: node_api_test
+  #   restart: on-failure
+  #   build: .
+  #   volumes:
+  #     - ./src:/app/src
+  #   entrypoint: sh -c "yarn test"      
   mongo:
     image: mongo
     ports:
