@@ -1,6 +1,15 @@
 # CAN I GO? 🤔
 
+## Installation
+```bash
+$ yarn install
+```
 ## Running the app
+
+```
+yarn build 
+```
+
 ```
 docker-compose up -d --build 
 ```
