@@ -59,9 +59,6 @@ describe("PUT /test/user/:id", () => {
       passId: "64343730f94829d1def60c4c",
     });
     expect(res.statusCode).toBe(200);
-    console.log(res.body);
-    
-
     expect(res.body.user.age).toBe(18);
   });
 });

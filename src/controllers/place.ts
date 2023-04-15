@@ -32,9 +32,7 @@ const addPlace = async (req: Request, res: Response): Promise<void> => {
     >;
     body.minimumPassLevel;
     if (
-      body.minimumPassLevel == 1 ||
-      body.minimumPassLevel == 2 ||
-      body.minimumPassLevel == 3
+      body.minimumPassLevel > 0 && body.minimumPassLevel < 4 
     ) {
       const place = new Places({
         address: body.address,

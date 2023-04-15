@@ -10,10 +10,10 @@ import { authenticateToken } from "../utils/jwt";
 
 const placeRoutes: Router = Router();
 
-placeRoutes.get("/place", authenticateToken, getPlaces);
-placeRoutes.post("/place", authenticateToken, addPlace);
-placeRoutes.put("/place/:id", authenticateToken, updatePlace);
-placeRoutes.delete("/place/:id", authenticateToken, deletePlace);
-placeRoutes.get("/place/:id", authenticateToken, retrievePlace);
+placeRoutes.get("/places", authenticateToken, getPlaces);
+placeRoutes.post("/places", authenticateToken, addPlace);
+placeRoutes.put("/places/:id", authenticateToken, updatePlace);
+placeRoutes.delete("/places/:id", authenticateToken, deletePlace);
+placeRoutes.get("/places/:id", authenticateToken, retrievePlace);
 
 export default placeRoutes;

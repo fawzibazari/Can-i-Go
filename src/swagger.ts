@@ -36,6 +36,14 @@ export const swagger = {
       name: "User",
       description: "API for users in the system",
     },
+    {
+      name: "Pass",
+      description: "API for passes in the system",
+    },
+    {
+      name: "Place",
+      description: "API for places in the system",
+    },
   ],
   consumes: ["application/json"],
   produces: ["application/json"],
@@ -117,7 +125,7 @@ export const swagger = {
       ],
       get: {
         tags: ["User"],
-        summary: "Get cat with given ID",
+        summary: "Get user with given ID",
         parameters: [
           {
             in: "path",
@@ -137,12 +145,12 @@ export const swagger = {
             },
           },
           "404": {
-            description: "Failed. Cat not found.",
+            description: "Failed. user not found.",
           },
         },
       },
       put: {
-        summary: "Update cat with given ID",
+        summary: "Update user with given ID",
         tags: ["User"],
         requestBody: {
           description: "User Object",
@@ -234,36 +242,376 @@ export const swagger = {
       },
     },
     "/places-by-user-id": {
-        post: {
-          tags: ["User"],
-          summary: "check which public spaces can access a given user",
-          requestBody: {
-            description: "Object",
-            required: true,
-            content: {
-              "application/json": {
-                schema: {
-                  $ref: "#/definitions/UserId",
-                },
-              },
-            },
-          },
-          responses: {
-            "200": {
-              description: "OK",
+      post: {
+        tags: ["User"],
+        summary: "check which public spaces can access a given user",
+        requestBody: {
+          description: "Object",
+          required: true,
+          content: {
+            "application/json": {
               schema: {
-                $ref: "#/definitions/Users",
+                $ref: "#/definitions/UserId",
               },
             },
           },
         },
+        responses: {
+          "200": {
+            description: "OK",
+            schema: {
+              $ref: "#/definitions/Users",
+            },
+          },
+        },
       },
+    },
+    "/passes": {
+      post: {
+        tags: ["Pass"],
+        summary: "create a pass",
+        requestBody: {
+          description: "Pass Object",
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/definitions/Pass",
+              },
+            },
+          },
+        },
+        responses: {
+          "200": {
+            description: "OK",
+            schema: {
+              $ref: "#/definitions/Passes",
+            },
+          },
+        },
+      },
+      get: {
+        tags: ["Pass"],
+        produces: ["application/json"],
+        responses: {
+          "200": {
+            description: "OK",
+            schema: {
+              $ref: "#/definitions/Pass",
+            },
+          },
+          "400": {
+            description: "Failed. Bad post data.",
+          },
+        },
+      },
+    },
+    "/passes/{id}": {
+      parameters: [
+        {
+          name: "id",
+          in: "path",
+          required: true,
+          description: "ID of the user that we want to match",
+          type: "string",
+        },
+      ],
+      get: {
+        tags: ["Pass"],
+        summary: "Get cat with given ID",
+        parameters: [
+          {
+            in: "path",
+            name: "id",
+            required: true,
+            description: "Pass with id",
+            schema: {
+              $ref: "#/definitions/id",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "OK",
+            schema: {
+              $ref: "#/definitions/Pass",
+            },
+          },
+          "404": {
+            description: "Failed. pass not found.",
+          },
+        },
+      },
+      put: {
+        summary: "Update pass with given ID",
+        tags: ["Pass"],
+        requestBody: {
+          description: "Pass Object",
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/definitions/Pass",
+              },
+            },
+          },
+        },
+        parameters: [
+          {
+            in: "path",
+            name: "id",
+            required: true,
+            description: "pass with new values of properties",
+            schema: {
+              $ref: "#/definitions/id",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "OK",
+            schema: {
+              $ref: "#/definitions/Pass",
+            },
+          },
+          "400": {
+            description: "Failed. Bad post data.",
+          },
+          "404": {
+            description: "Failed. Pass not found.",
+          },
+        },
+      },
+      delete: {
+        summary: "Delete pass with given ID",
+        tags: ["Pass"],
+        parameters: [
+          {
+            in: "path",
+            name: "id",
+            required: true,
+            description: "Delete Pass with id",
+            schema: {
+              $ref: "#/definitions/id",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "OK",
+            schema: {
+              $ref: "#/definitions/id",
+            },
+          },
+          "404": {
+            description: "Failed. Pass not found.",
+          },
+        },
+      },
+    },
+    "/places": {
+      post: {
+        tags: ["Place"],
+        summary: "create a place",
+        requestBody: {
+          description: "Place Object",
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/definitions/Place",
+              },
+            },
+          },
+        },
+        responses: {
+          "200": {
+            description: "OK",
+            schema: {
+              $ref: "#/definitions/Places",
+            },
+          },
+        },
+      },
+      get: {
+        tags: ["Place"],
+        produces: ["application/json"],
+        responses: {
+          "200": {
+            description: "OK",
+            schema: {
+              $ref: "#/definitions/Place",
+            },
+          },
+          "400": {
+            description: "Failed. Bad post data.",
+          },
+        },
+      },
+    },
+    "/places/{id}": {
+      parameters: [
+        {
+          name: "id",
+          in: "path",
+          required: true,
+          description: "ID of the user that we want to match",
+          type: "string",
+        },
+      ],
+      get: {
+        tags: ["Place"],
+        summary: "Get cat with given ID",
+        parameters: [
+          {
+            in: "path",
+            name: "id",
+            required: true,
+            description: "Pass with id",
+            schema: {
+              $ref: "#/definitions/id",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "OK",
+            schema: {
+              $ref: "#/definitions/Place",
+            },
+          },
+          "404": {
+            description: "Failed. Place not found.",
+          },
+        },
+      },
+      put: {
+        summary: "Update Place with given ID",
+        tags: ["Place"],
+        requestBody: {
+          description: "Place Object",
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/definitions/Place",
+              },
+            },
+          },
+        },
+        parameters: [
+          {
+            in: "path",
+            name: "id",
+            required: true,
+            description: "Place with new values of properties",
+            schema: {
+              $ref: "#/definitions/id",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "OK",
+            schema: {
+              $ref: "#/definitions/Place",
+            },
+          },
+          "400": {
+            description: "Failed. Bad post data.",
+          },
+          "404": {
+            description: "Failed. Place not found.",
+          },
+        },
+      },
+      delete: {
+        summary: "Delete Place with given ID",
+        tags: ["Place"],
+        parameters: [
+          {
+            in: "path",
+            name: "id",
+            required: true,
+            description: "Delete Place with id",
+            schema: {
+              $ref: "#/definitions/id",
+            },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "OK",
+            schema: {
+              $ref: "#/definitions/id",
+            },
+          },
+          "404": {
+            description: "Failed. Place not found.",
+          },
+        },
+      },
+    },
   },
   definitions: {
     id: {
       properties: {
         uuid: {
           type: "string",
+        },
+      },
+    },
+    Pass: {
+      type: "object",
+      properties: {
+        passLevel: {
+          type: "number",
+        },
+        levelDetails: {
+          type: "string",
+        },
+      },
+    },
+    Passes: {
+      type: "object",
+      properties: {
+        users: {
+          type: "object",
+          additionalProperties: {
+            $ref: "#/definitions/Pass",
+          },
+        },
+      },
+    },
+    Place: {
+      type: "object",
+      properties: {
+        address: {
+          type: "string",
+        },
+        phoneNumber: {
+          type: "string",
+        },
+        minimumPassLevel: {
+          type: "number",
+        },
+        minimumAge: {
+          type: "number",
+        },
+        ownerId: {
+          type: "string",
+          default: "6432df088765b79d2dca3497",
+        },
+      },
+    },
+    Places: {
+      type: "object",
+      properties: {
+        users: {
+          type: "object",
+          additionalProperties: {
+            $ref: "#/definitions/Place",
+          },
         },
       },
     },
