@@ -29,11 +29,9 @@ const MONGO_OPTIONS = {
   retryWrites: false,
   useUnifiedTopology: true
 };
+
 mongoose
-  .connect(
-    "mongodb+srv://test:test@cluster0.jzrsc.mongodb.net/can_i_go_confirmed?retryWrites=true&w=majority",
-    MONGO_OPTIONS
-  )
+  .connect("mongodb://mongo:27017/docker-node-mongo")
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
@@ -46,5 +44,5 @@ app.listen(PORT, () =>
   console.log(`Server running on http://localhost:${PORT}`)
 );
 
-// seedData();
+seedData();
 export default app;

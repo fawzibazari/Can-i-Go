@@ -29,8 +29,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "concurrently \"tsc -w\" \"node dist/js/app.js\"",
-    "dev": "concurrently \"tsc -w\" \"nodemon dist/js/app.js\"",
+    "start": "concurrently \"tsc -w\" \"nodemon dist/js/app.js\"",
     "test": "jest --testTimeout=5000"
   },
   "devDependencies": {

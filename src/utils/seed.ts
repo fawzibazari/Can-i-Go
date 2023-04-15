@@ -98,36 +98,10 @@ const places = [
 ];
 
 export async function seedData() {
-  const MONGO_OPTIONS = {
-    useNewUrlParser: true,
-    keepAlive: true,
-    autoIndex: false,
-    retryWrites: false,
-    useUnifiedTopology: true,
-  };
-  mongoose
-    .connect(
-      "mongodb+srv://test:test@cluster0.jzrsc.mongodb.net/can_i_go_confirmed?retryWrites=true&w=majority",
-      MONGO_OPTIONS
-    )
-    .then(async (mongoose) => {
-      try {
-        console.log("Connected to mongodb!");
-
-        // Inserting multiple documents
-        // await Places.insertMany(places);
-        await Users.insertMany(users);
-        await Pass.insertMany(passes);
-      } finally {
-        mongoose.connection.close();
-      }
-    })
-    .catch((err) => console.log(err));
-
-  // await Users.deleteMany({});
-  // await Places.deleteMany({});
-  // await Pass.deleteMany({});
-  // await Users.insertMany(users);
-  // await Pass.insertMany(passes);
-  // await Places.insertMany(places);
+  await Users.deleteMany({});
+  await Places.deleteMany({});
+  await Pass.deleteMany({});
+  await Users.insertMany(users);
+  await Pass.insertMany(passes);
+  await Places.insertMany(places);
 }

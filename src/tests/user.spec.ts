@@ -50,7 +50,7 @@ describe("POST /test/user", () => {
 
 describe("PUT /test/user/:id", () => {
   it("should update a user", async () => {
-    const res = await requests.put("/test/user/6439d1bec25b185933925f87").send({
+    const res = await requests.put("/test/user/6432df088765b79d2dca3497").send({
       firstname: "test",
       lastname: "test2",
       age: 18,
@@ -59,6 +59,8 @@ describe("PUT /test/user/:id", () => {
       passId: "64343730f94829d1def60c4c",
     });
     expect(res.statusCode).toBe(200);
+    console.log(res.body);
+    
 
     expect(res.body.user.age).toBe(18);
   });
