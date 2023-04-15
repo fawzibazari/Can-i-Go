@@ -1,10 +1,10 @@
 import { Response, Request } from "express";
-import PassModel from "../models/pass";
+import Pass from "../models/pass";
 import { IPass } from "../types/pass";
 
 const getPasses = async (req: Request, res: Response): Promise<void> => {
   try {
-    const passes: IPass[] = await PassModel.find();
+    const passes: IPass[] = await Pass.find();
     res.status(200).json({ passes });
   } catch (error) {
     console.log(error);
@@ -16,7 +16,7 @@ const retrievePass = async (req: Request, res: Response): Promise<void> => {
     const {
       params: { id },
     } = req;
-    const pass_by_id: IPass | null = await PassModel.findById({ _id: id });
+    const pass_by_id: IPass | null = await Pass.findById({ _id: id });
 
     res.status(pass_by_id ? 200 : 404).json({ pass_by_id });
   } catch (error) {
@@ -30,7 +30,7 @@ const addPass = async (req: Request, res: Response): Promise<void> => {
       IPass,
       "passLevel" | "levelDetails" | "created_at" | "updated_at"
     >;
-    const pass = new PassModel({
+    const pass = new Pass({
       passLevel: body.passLevel,
       levelDetails: body.levelDetails,
       created_at: Date.now(),
@@ -50,7 +50,7 @@ const updatePass = async (req: Request, res: Response): Promise<void> => {
       body,
     } = req;
 
-    const updatePass: IPass | null = await PassModel.findByIdAndUpdate(
+    const updatePass: IPass | null = await Pass.findByIdAndUpdate(
       { _id: id },
       {
         passLevel: body.passLevel,
@@ -71,7 +71,7 @@ const updatePass = async (req: Request, res: Response): Promise<void> => {
 
 const deletePass = async (req: Request, res: Response): Promise<void> => {
   try {
-    const deletedPass: IPass | null = await PassModel.findByIdAndRemove(
+    const deletedPass: IPass | null = await Pass.findByIdAndRemove(
       req.params.id
     );
     res.status(204).json({

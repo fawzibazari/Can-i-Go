@@ -1,6 +1,7 @@
-import UserModel from "../models/user";
-import PassModel from "../models/pass";
-import PlaceModel from "../models/place";
+import Users from "../models/user";
+import Pass from "../models/pass";
+import Places from "../models/place";
+import mongoose from "mongoose";
 
 const users = [
   {
@@ -97,10 +98,36 @@ const places = [
 ];
 
 export async function seedData() {
-  await UserModel.deleteMany({});
-  await PlaceModel.deleteMany({});
-  await PassModel.deleteMany({});
-  await UserModel.insertMany(users);
-  await PassModel.insertMany(passes);
-  await PlaceModel.insertMany(places);
+  const MONGO_OPTIONS = {
+    useNewUrlParser: true,
+    keepAlive: true,
+    autoIndex: false,
+    retryWrites: false,
+    useUnifiedTopology: true,
+  };
+  mongoose
+    .connect(
+      "mongodb+srv://test:test@cluster0.jzrsc.mongodb.net/can_i_go_confirmed?retryWrites=true&w=majority",
+      MONGO_OPTIONS
+    )
+    .then(async (mongoose) => {
+      try {
+        console.log("Connected to mongodb!");
+
+        // Inserting multiple documents
+        // await Places.insertMany(places);
+        await Users.insertMany(users);
+        await Pass.insertMany(passes);
+      } finally {
+        mongoose.connection.close();
+      }
+    })
+    .catch((err) => console.log(err));
+
+  // await Users.deleteMany({});
+  // await Places.deleteMany({});
+  // await Pass.deleteMany({});
+  // await Users.insertMany(users);
+  // await Pass.insertMany(passes);
+  // await Places.insertMany(places);
 }

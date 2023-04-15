@@ -1,10 +1,10 @@
 import { Response, Request } from "express";
-import PlaceModel from "../models/place";
+import Places from "../models/place";
 import { IPlace } from "../types/place";
 
 const getPlaces = async (req: Request, res: Response): Promise<void> => {
   try {
-    const places: IPlace[] = await PlaceModel.find();
+    const places: IPlace[] = await Places.find();
     res.status(200).json({ places });
   } catch (error) {
     console.log(error);
@@ -16,7 +16,7 @@ const retrievePlace = async (req: Request, res: Response): Promise<void> => {
     const {
       params: { id },
     } = req;
-    const place_by_id: IPlace | null = await PlaceModel.findById({ _id: id });
+    const place_by_id: IPlace | null = await Places.findById({ _id: id });
 
     res.status(place_by_id ? 200 : 404).json({ place_by_id });
   } catch (error) {
@@ -36,7 +36,7 @@ const addPlace = async (req: Request, res: Response): Promise<void> => {
       body.minimumPassLevel == 2 ||
       body.minimumPassLevel == 3
     ) {
-      const place = new PlaceModel({
+      const place = new Places({
         address: body.address,
         phoneNumber: body.phoneNumber,
         minimumPassLevel: body.minimumPassLevel,
@@ -61,9 +61,9 @@ const updatePlace = async (req: Request, res: Response): Promise<void> => {
       body,
     } = req;
 
-    const place_by_id: IPlace | null = await PlaceModel.findById({ _id: id });
+    const place_by_id: IPlace | null = await Places.findById({ _id: id });
     if (place_by_id?.ownerId == req.body.user._id) {
-      const updatePlace: IPlace | null = await PlaceModel.findByIdAndUpdate(
+      const updatePlace: IPlace | null = await Places.findByIdAndUpdate(
         { _id: id },
         {
           address: body.address,
@@ -90,12 +90,12 @@ const updatePlace = async (req: Request, res: Response): Promise<void> => {
 
 const deletePlace = async (req: Request, res: Response): Promise<void> => {
   try {
-    const place_by_id: IPlace | null = await PlaceModel.findById({
+    const place_by_id: IPlace | null = await Places.findById({
       _id: req.params.id,
     });
 
     if (place_by_id?.ownerId == req.body.user._id) {
-      const deletedPlace: IPlace | null = await PlaceModel.findByIdAndRemove(
+      const deletedPlace: IPlace | null = await Places.findByIdAndRemove(
         req.params.id
       );
       res.status(204).json({

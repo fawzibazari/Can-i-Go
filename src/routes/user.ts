@@ -12,13 +12,14 @@ import { authenticateToken } from "../utils/jwt";
 
 const userRoutes: Router = Router();
 
-userRoutes.get("/user", authenticateToken, getUsers);
-userRoutes.post("/user", addUser);
-userRoutes.put("/user/:id", authenticateToken, updateUser);
-userRoutes.delete("/user/:id", authenticateToken, deleteUser);
-userRoutes.get("/user/:id", authenticateToken, retrieveUser);
+userRoutes.get("/users", authenticateToken, getUsers);
+userRoutes.post("/users", addUser);
+userRoutes.put("/users/:id", authenticateToken, updateUser);
+userRoutes.delete("/users/:id", authenticateToken, deleteUser);
+userRoutes.get("/users/:id", authenticateToken, retrieveUser);
 
 //for unit test
+// i created this routes for testing without a JWT
 userRoutes.get("/test/user", getUsers);
 userRoutes.post("/test/user", addUser);
 userRoutes.put("/test/user/:id", updateUser);

@@ -40,7 +40,7 @@ export const swagger = {
   consumes: ["application/json"],
   produces: ["application/json"],
   paths: {
-    "/user": {
+    "/users": {
       post: {
         tags: ["User"],
         summary: "create user",
@@ -105,7 +105,7 @@ export const swagger = {
         },
       },
     },
-    "/user/{id}": {
+    "/users/{id}": {
       parameters: [
         {
           name: "id",

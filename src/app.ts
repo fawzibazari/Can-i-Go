@@ -6,8 +6,8 @@ import passRoutes from "./routes/pass";
 import placeRoutes from "./routes/place";
 import authRoutes from "./routes/auth";
 import { seedData } from "./utils/seed";
-import swaggerUi from 'swagger-ui-express'
-import {swagger} from './swagger'
+import swaggerUi from "swagger-ui-express";
+import { swagger } from "./swagger";
 
 const app = express();
 
@@ -19,12 +19,22 @@ app.use(userRoutes);
 app.use(passRoutes);
 app.use(placeRoutes);
 app.use(authRoutes);
-app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swagger));
+app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swagger));
 
 // docker run -e CI=true can_i_go_confirmed-api yarn test
 // Connect to MongoDB
+// const MONGO_OPTIONS = {
+//   useNewUrlParser: true,
+//   keepAlive: true,
+//   autoIndex: false,
+//   retryWrites: false,
+//   useUnifiedTopology: true
+// };
 mongoose
-  .connect("mongodb://mongo:27017/docker-node-mongo")
+  .connect(
+    "mongodb+srv://test:test@cluster0.jzrsc.mongodb.net/can_i_go_confirmed?retryWrites=true&w=majority",
+    // MONGO_OPTIONS
+  )
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
@@ -37,5 +47,5 @@ app.listen(PORT, () =>
   console.log(`Server running on http://localhost:${PORT}`)
 );
 
-seedData();
-export default app
+// seedData();
+export default app;
