@@ -21,19 +21,18 @@ app.use(placeRoutes);
 app.use(authRoutes);
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swagger));
 
-// docker run -e CI=true can_i_go_confirmed-api yarn test
 // Connect to MongoDB
-// const MONGO_OPTIONS = {
-//   useNewUrlParser: true,
-//   keepAlive: true,
-//   autoIndex: false,
-//   retryWrites: false,
-//   useUnifiedTopology: true
-// };
+const MONGO_OPTIONS = {
+  useNewUrlParser: true,
+  keepAlive: true,
+  autoIndex: false,
+  retryWrites: false,
+  useUnifiedTopology: true
+};
 mongoose
   .connect(
     "mongodb+srv://test:test@cluster0.jzrsc.mongodb.net/can_i_go_confirmed?retryWrites=true&w=majority",
-    // MONGO_OPTIONS
+    MONGO_OPTIONS
   )
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
