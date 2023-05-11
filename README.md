@@ -63,25 +63,25 @@ Here's the list of the 3 entities that must be implemented in the project. The f
 
 ### User :
 
-- [ ] id (must be generated automatically)
-- [ ] First name
-- [ ] Last name
-- [ ] Age
-- [ ] Phone number
-- [ ] Address
-- [ ] Pass's id
+- [x] id (must be generated automatically)
+- [x] First name
+- [x] Last name
+- [x] Age
+- [x] Phone number
+- [x] Address
+- [x] Pass's id
 
 ### Pass :
 
-- [ ] id (must be generated automatically)
-- [ ] Pass's level
-- [ ] Created_at
-- [ ] Updated_at
+- [x] id (must be generated automatically)
+- [x] Pass's level
+- [x] Created_at
+- [x] Updated_at
 
 ### Place :
 
-- [ ] id (must be generated automatically)
-- [ ] Address
-- [ ] Phone number
-- [ ] Minimum required pass's level to get in
-- [ ] Minimum required age to get in
+- [x] id (must be generated automatically)
+- [x] Address
+- [x] Phone number
+- [x] Minimum required pass's level to get in
+- [x] Minimum required age to get in
